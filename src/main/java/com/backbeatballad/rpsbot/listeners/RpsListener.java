@@ -2,7 +2,6 @@ package com.backbeatballad.rpsbot.listeners;
 
 import com.backbeatballad.rpsbot.configs.DiscordConfig;
 import com.backbeatballad.rpsbot.services.ThrowService;
-import org.javacord.api.entity.emoji.Emoji;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.component.ActionRow;
@@ -27,9 +26,10 @@ public class RpsListener {
     @PostConstruct
     private void AddListeners(){
         addRPSListener();
+        addBombListener();
     }
 
-    public void addRPSListener(){
+    private void addRPSListener(){
         discordConfig.getApi().addMessageCreateListener(event -> {
             if (event.getMessageContent().equalsIgnoreCase("!rps")) {
                 new MessageBuilder()
@@ -46,32 +46,43 @@ public class RpsListener {
         discordConfig.getApi().addMessageComponentCreateListener(event -> {
             MessageComponentInteraction messageComponentInteraction = event.getMessageComponentInteraction();
             String customId = messageComponentInteraction.getCustomId();
+            String response = event.getInteraction().getUser().getDisplayName(event.getInteraction().getServer().get()) + " has challenged the bot! \n";
 
             switch (customId) {
                 case "rock":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Rock"))
+                            .setContent(response + throwService.rps("Rock"))
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
                 case "paper":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Paper"))
+                            .setContent(response + throwService.rps("Paper"))
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
                 case "scissors":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Scissors"))
+                            .setContent(response + throwService.rps("Scissors"))
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
                 case "throwForMe":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.ThrowForMe())
+                            .setContent(response + throwService.throwForMe())
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
+            }
+        });
+    }
+
+    private void addBombListener(){
+        discordConfig.getApi().addMessageCreateListener(event -> {
+            if (event.getMessageContent().equalsIgnoreCase("!rpsbomb")) {
+                new MessageBuilder()
+                        .setContent(event.getMessageAuthor().getDisplayName() + " has challenged the bot! \n" + throwService.throwBombForMe())
+                        .send(event.getChannel());
             }
         });
     }
