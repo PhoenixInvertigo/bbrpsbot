@@ -46,7 +46,12 @@ public class RpsListener {
         discordConfig.getApi().addMessageComponentCreateListener(event -> {
             MessageComponentInteraction messageComponentInteraction = event.getMessageComponentInteraction();
             String customId = messageComponentInteraction.getCustomId();
-            String response = event.getInteraction().getUser().getDisplayName(event.getInteraction().getServer().get()) + " has challenged the bot! \n";
+            String response = "";
+            if(event.getInteraction().getServer().isPresent()) {
+                response = event.getInteraction().getUser().getDisplayName(event.getInteraction().getServer().get()) + " has challenged the bot! \n";
+            } else{
+                response = event.getInteraction().getUser().getName() + " has challenged the bot! \n";
+            }
 
             switch (customId) {
                 case "rock":
