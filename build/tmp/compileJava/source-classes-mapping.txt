@@ -1,8 +1,8 @@
-com/backbeatballad/rpsbot/services/ThrowService.java
- com.backbeatballad.rpsbot.services.ThrowService
-com/backbeatballad/rpsbot/BbRpsBotApplication.java
- com.backbeatballad.rpsbot.BbRpsBotApplication
 com/backbeatballad/rpsbot/configs/DiscordConfig.java
  com.backbeatballad.rpsbot.configs.DiscordConfig
+com/backbeatballad/rpsbot/BbRpsBotApplication.java
+ com.backbeatballad.rpsbot.BbRpsBotApplication
+com/backbeatballad/rpsbot/services/ThrowService.java
+ com.backbeatballad.rpsbot.services.ThrowService
 com/backbeatballad/rpsbot/listeners/RpsListener.java
  com.backbeatballad.rpsbot.listeners.RpsListener
