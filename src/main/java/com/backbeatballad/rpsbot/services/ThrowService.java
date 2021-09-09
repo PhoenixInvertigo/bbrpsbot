@@ -17,6 +17,10 @@ public class ThrowService {
         return result;
     }
 
+    public String ThrowForMe(){
+        return RPS(randomRPSSymbol());
+    }
+
     private String randomRPSSymbol(){
         Random rand = new Random();
         int result = rand.nextInt(3);

@@ -37,7 +37,8 @@ public class RpsListener {
                         .addComponents(
                                 ActionRow.of(Button.secondary("rock", "Rock", "\u270A"),
                                         Button.secondary("paper", "Paper", "\u270B"),
-                                        Button.secondary("scissors", "Scissors", "\u270C")))
+                                        Button.secondary("scissors", "Scissors", "\u270C"),
+                                        Button.secondary("throwForMe", "Throw for me", "\u2753")))
                         .send(event.getChannel());
             }
         });
@@ -49,19 +50,25 @@ public class RpsListener {
             switch (customId) {
                 case "rock":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(throwService.RPS("Rock"))
+                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Rock"))
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
                 case "paper":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(throwService.RPS("Paper"))
+                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Paper"))
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
                 case "scissors":
                     messageComponentInteraction.createImmediateResponder()
-                            .setContent(throwService.RPS("Scissors"))
+                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.RPS("Scissors"))
+                            .respond();
+                    messageComponentInteraction.getMessage().ifPresent(Message::delete);
+                    break;
+                case "throwForMe":
+                    messageComponentInteraction.createImmediateResponder()
+                            .setContent(event.getInteraction().getUser().getName() + " has challenged the bot! \n" + throwService.ThrowForMe())
                             .respond();
                     messageComponentInteraction.getMessage().ifPresent(Message::delete);
                     break;
